@@ -11,6 +11,7 @@
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable-v24/icon_round_background.xml" value="0.1" />
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable-v24/icon_square_background.xml" value="0.1" />
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable/ic_black_curve_wave.xml" value="0.176" />
+        <entry key="..\:/projects/MainProject/app/src/main/res/drawable/ic_hamburgeer.xml" value="0.1955" />
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1955" />
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable/ic_medicine.xml" value="0.176" />
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable/ic_undraw_medicineblack_svg.xml" value="0.176" />
@@ -24,7 +25,9 @@
         <entry key="..\:/projects/MainProject/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/projects/MainProject/app/src/main/res/layout/activity_ocr.xml" value="0.27447916666666666" />
         <entry key="..\:/projects/MainProject/app/src/main/res/layout/activity_sign_up.xml" value="0.2564814814814815" />
+        <entry key="..\:/projects/MainProject/app/src/main/res/layout/drawer_header.xml" value="0.27447916666666666" />
         <entry key="..\:/projects/MainProject/app/src/main/res/layout/same.xml" value="0.27447916666666666" />
+        <entry key="..\:/projects/MainProject/app/src/main/res/menu/drawer_menu.xml" value="0.21302083333333333" />
         <entry key="..\:/projects/MainProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1955" />
       </map>
     </option>

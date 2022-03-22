@@ -1,5 +1,6 @@
 package com.example.needmedz;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,21 +10,27 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
@@ -35,17 +42,24 @@ import java.io.IOException;
 
 public class OcrActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
+    DrawerLayout Drawer;
+    ActionBarDrawerToggle actionBarDrawerToggle;
     Button logout ;
     Button generateText ;
     Button next;
     ImageView i ;
     EditText resultTV ;
     private Bitmap bitmap;
+    String BlockText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr);
+
+        toolbar = (Toolbar) findViewById(R.id.AppBar);
+        Drawer = findViewById(R.id.mainDrawer);
 
         logout = findViewById(R.id.button2);
         resultTV = findViewById(R.id.editTextTextMultiLine);
@@ -53,6 +67,7 @@ public class OcrActivity extends AppCompatActivity {
         next = findViewById(R.id.button3);
         i = findViewById(R.id.imageView2);
         i.setImageResource(R.drawable.uploadicon);
+        setupDrawerLayout();
 
     logout.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -68,7 +83,7 @@ public class OcrActivity extends AppCompatActivity {
         generateText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(OcrActivity.this, " Backend is Yet to be established ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OcrActivity.this, " generating Text  ", Toast.LENGTH_SHORT).show();
                 detect();
             }
         });
@@ -76,6 +91,7 @@ public class OcrActivity extends AppCompatActivity {
     next.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
             Intent i = new Intent(OcrActivity.this,DataBaseActivity.class);
             startActivity(i);
         }
@@ -96,6 +112,20 @@ public class OcrActivity extends AppCompatActivity {
 
     }
 
+    private void setupDrawerLayout() {
+        setSupportActionBar(toolbar);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, Drawer ,R.string.app_name,R.string.app_name);
+        actionBarDrawerToggle.syncState();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
@@ -104,6 +134,7 @@ public class OcrActivity extends AppCompatActivity {
             try {
                  bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
             } catch (IOException e) {
+                Toast.makeText(OcrActivity.this, " error occured ", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
 
 
@@ -122,20 +153,28 @@ public class OcrActivity extends AppCompatActivity {
             public void onSuccess(Text text) {
                  StringBuilder result = new StringBuilder();
                  for(Text.TextBlock block : text.getTextBlocks()){
-                    String BlockText = block.getText();
-                     Point[]  blockCornerPoint = block.getCornerPoints();
-                     Rect blockframe = block.getBoundingBox();
+                     BlockText = block.getText();
+//                     Point[]  blockCornerPoint = block.getCornerPoints();
+//                     Rect blockframe = block.getBoundingBox();
                      for (Text.Line line : block.getLines()){
-                         String lineTExt = line.getText();
-                         Point[] lineCorneerPoint = line.getCornerPoints();
-                         Rect linrect = line.getBoundingBox();
+//                         String lineTExt = line.getText();
+//                         Point[] lineCornerPoint = line.getCornerPoints();
+//                         Rect linerect = line.getBoundingBox();
                          for (Text.Element element: line.getElements()){
                              String elementText = element.getText();
                              result.append(elementText);
                          }
-                         resultTV.setText( block.toString());
+
                      }
+
                  }
+                resultTV.setText(BlockText);
+                 if(!resultTV.getText().toString().isEmpty())
+                 {
+                     resultTV.setVisibility(View.VISIBLE);
+                     next.setEnabled(true);
+                 }
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

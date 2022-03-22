@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/mainDrawer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".OcrActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/AppBar"
+            style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            app:navigationIcon="@drawable/ic_hamburgeer"
+            app:title="@string/app_name"
+            app:titleTextColor="#ffff" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="348dp"
         android:layout_height="171dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="96dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +76,7 @@
         android:paddingTop="14dp"
         android:paddingBottom="14dp"
         android:text="Next"
+        android:enabled="false"
         android:textColor="#ffffff"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView7"
@@ -77,16 +108,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine"
         app:layout_constraintVertical_bias="1.0" />
 
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="41dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu_" />
+
 
     <EditText
         android:id="@+id/editTextTextMultiLine"
@@ -94,6 +116,7 @@
         android:layout_height="136dp"
         android:layout_marginTop="28dp"
         android:ems="10"
+        android:visibility="gone"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,3 +125,16 @@
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<com.google.android.material.navigation.NavigationView
+
+        android:layout_width = "wrap_content"
+        android:layout_height = "match_parent"
+        app:headerLayout = "@layout/drawer_header"
+        app:menu = "@menu/drawer_menu"
+        android:layout_gravity = "end">
+
+</com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>
