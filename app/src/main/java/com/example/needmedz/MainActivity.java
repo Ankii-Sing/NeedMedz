@@ -15,15 +15,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        show splash screen
         Handler h = new Handler();
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        h.postDelayed(() -> {
 //                #cal next scereen
-                Intent i = new Intent(MainActivity.this , gettingStarted.class);
-                startActivity(i);
-                finish();
+            Intent i = new Intent(MainActivity.this , gettingStarted.class);
+            startActivity(i);
+            finish();
 
-            }
         },2500);
     }
 }
