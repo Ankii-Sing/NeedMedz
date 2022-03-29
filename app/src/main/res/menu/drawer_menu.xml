@@ -2,9 +2,11 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Follow Us" />
-    <item android:title="Profile" />
-    <item android:title="Rate Us" />
-    <item android:title="Log Out" android:id="@+id/logout" />
+<!--    <item android:title="Rate Us" />-->
+    <item android:title="Log Out"
+        android:id="@+id/logout"
+        android:icon="@drawable/logoutsvg"
+
+        />
 
 </menu>

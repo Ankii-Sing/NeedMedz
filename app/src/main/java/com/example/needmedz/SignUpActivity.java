@@ -56,6 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SignUp();
+
             }
         });
     }
@@ -89,6 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
 //                    AuthResult result = task.getResult();
                     Toast.makeText(SignUpActivity.this,"login Successful ",Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(SignUpActivity.this , OcrActivity.class);
+                    i.putExtra("keyemail",email);
                     startActivity(i);
                     finish();
                     // You can access the new user via result.getUser()

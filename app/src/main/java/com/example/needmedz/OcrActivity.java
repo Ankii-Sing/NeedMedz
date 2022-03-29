@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,10 +25,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
-
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -37,13 +38,15 @@ public class OcrActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     DrawerLayout Drawer;
+    NavigationView nav;
     ActionBarDrawerToggle actionBarDrawerToggle;
-    Button logout ;
     Button generateText ;
     Button next;
     ImageView i ;
     EditText resultTV ;
     private Bitmap bitmap;
+    String MedData;
+    Button skip;
 
 
     @Override
@@ -53,31 +56,61 @@ public class OcrActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.AppBar);
         Drawer = findViewById(R.id.mainDrawer);
-
-        logout = findViewById(R.id.button2);
+        nav = findViewById(R.id.navigation);
         resultTV = findViewById(R.id.editTextTextMultiLine);
         generateText = findViewById(R.id.button);
         next = findViewById(R.id.button3);
+        skip = findViewById(R.id.skip);
         i = findViewById(R.id.imageView2);
         i.setImageResource(R.drawable.uploadicon);
         setupDrawerLayout();
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
-    logout.setOnClickListener(view -> {
 
-//            logout Functionality
-        FirebaseAuth.getInstance().signOut();
-        Intent i = new Intent(OcrActivity.this, loginActivity.class);
-        startActivity(i);
-    });
+        //         setting  up log out feature in navigation drawer.
+        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                switch(item.getItemId())
+                {
+                    case R.id.logout:
+                        FirebaseAuth.getInstance().signOut();
+                        Intent i = new Intent(OcrActivity.this, loginActivity.class);
+                        startActivity(i);
+
+                        Toast.makeText(OcrActivity.this, " logging Out ", Toast.LENGTH_SHORT).show();
+
+                        return true;
+                }
+                return true;
+            }
+        });
+
+// setting up name in the header of naviation drawer
+       View hnav =  nav.getHeaderView(0);
+        TextView t = (TextView) hnav.findViewById(R.id.email);
+        String email = getIntent().getStringExtra("keyemail");
+        t.setText(email);
+
+
+//  generarting text from the image :->
         generateText.setOnClickListener(view -> {
             Toast.makeText(OcrActivity.this, " generating Text  ", Toast.LENGTH_SHORT).show();
             detect();
         });
 
+//         added skip button to data activity.
+        skip.setOnClickListener(view -> {
+            Toast.makeText(OcrActivity.this, " Gathering Data  ", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(OcrActivity.this,DataActivity.class);
+            startActivity(i);
+        });
+
     next.setOnClickListener(view -> {
 
         Intent i = new Intent(OcrActivity.this,DataBaseActivity.class);
+        MedData = resultTV.getText().toString();
+        i.putExtra("medData",MedData);                  // passing medicine data to next activity.
         startActivity(i);
     });
 
@@ -92,6 +125,7 @@ public class OcrActivity extends AppCompatActivity {
 
     }
 
+
     private void setupDrawerLayout() {
         setSupportActionBar(toolbar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, Drawer ,R.string.app_name,R.string.app_name);
@@ -105,6 +139,7 @@ public class OcrActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -127,6 +162,7 @@ public class OcrActivity extends AppCompatActivity {
         }
     }
 
+
     private void detect() {
 
         TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
@@ -147,42 +183,14 @@ public class OcrActivity extends AppCompatActivity {
             }
 
             resultTV.setText(sb.toString());
-            Toast.makeText(this, sb.toString(), Toast.LENGTH_SHORT).show();
-            if(!resultTV.getText().toString().isEmpty())
-            {
+            Toast.makeText(this, " Please Edit the Text to Medecine name only ", Toast.LENGTH_LONG).show();
+            if(!resultTV.getText().toString().isEmpty()) {
                 resultTV.setVisibility(View.VISIBLE);
                 next.setEnabled(true);
                 next.setAlpha(1);
             }
-          //  Result = sb.toString().trim().toLowerCase().split("");
-
         }
-
-      /*  InputImage image = InputImage.fromBitmap(bitmap,0);
-        TextRecognizer recognizer  = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
-        Task<Text> result = recognizer.process(image).addOnSuccessListener(text -> {
-             StringBuilder result1 = new StringBuilder();
-             for(Text.TextBlock block : text.getTextBlocks()){
-                 BlockText = block.getText();
-//                     Point[]  blockCornerPoint = block.getCornerPoints();
-//                     Rect blockframe = block.getBoundingBox();
-                 for (Text.Line line : block.getLines()){
-//                         String lineTExt = line.getText();
-//                         Point[] lineCornerPoint = line.getCornerPoints();
-//                         Rect linerect = line.getBoundingBox();
-                     for (Text.Element element: line.getElements()){
-                         String elementText = element.getText();
-                         result1.append(elementText);
-                     }
-
-                 }
-
-             }
-            resultTV.setText(BlockText);*/
-
-
     }
-
 
 
 }

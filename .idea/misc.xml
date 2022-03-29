@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Ankit project/NeedMedz/app/src/main/res/layout/activity_ocr.xml" value="0.20416666666666666" />
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable-v24/black_wave.xml" value="0.176" />
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable-v24/blue_border_rounded_cornwe.xml" value="0.1955" />
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable-v24/blue_fill__rounded_color.xml" value="0.176" />
@@ -16,10 +15,12 @@
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1955" />
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable/ic_medicine.xml" value="0.176" />
         <entry key="..\:/projects/MainProject/app/src/main/res/drawable/ic_undraw_medicineblack_svg.xml" value="0.176" />
+        <entry key="..\:/projects/MainProject/app/src/main/res/drawable/logoutsvg.xml" value="0.1955" />
         <entry key="..\:/projects/MainProject/app/src/main/res/font/abel.xml" value="0.1" />
         <entry key="..\:/projects/MainProject/app/src/main/res/font/aleo.xml" value="0.1" />
         <entry key="..\:/projects/MainProject/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.35390625" />
         <entry key="..\:/projects/MainProject/app/src/main/res/layout-w936dp/activity_login.xml" value="0.205859375" />
+        <entry key="..\:/projects/MainProject/app/src/main/res/layout/activity_data.xml" value="0.27447916666666666" />
         <entry key="..\:/projects/MainProject/app/src/main/res/layout/activity_data_base.xml" value="0.27447916666666666" />
         <entry key="..\:/projects/MainProject/app/src/main/res/layout/activity_getting_started.xml" value="0.25" />
         <entry key="..\:/projects/MainProject/app/src/main/res/layout/activity_login.xml" value="0.264" />

@@ -17,9 +17,8 @@
     <TextView
         style="@style/TextAppearance.AppCompat.Subhead"
         android:layout_marginTop="16dp"
-        android:id="@+id/textView8"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="abc@gmail.com"
         android:textColor="#ffff"/>
 </LinearLayout>
