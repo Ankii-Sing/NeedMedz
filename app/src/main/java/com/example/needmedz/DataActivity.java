@@ -34,6 +34,8 @@ public class DataActivity extends AppCompatActivity {
                         {
                             MedicineModel med =  snap.getValue(MedicineModel.class);
                             array.add(med);
+                            
+
                             s = s +  "\n" + "Disease: " + snap.child("Disease").getValue().toString() + "\n" +
                                     "Dosage:"  + snap.child("Dosage").getValue().toString() + "\n" +
                                     "Patient Review: " + snap.child("Patient Review").getValue().toString() + "\n" +
