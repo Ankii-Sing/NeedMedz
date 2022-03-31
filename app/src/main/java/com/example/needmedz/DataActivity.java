@@ -38,10 +38,10 @@ public class DataActivity extends AppCompatActivity {
 
                             s = s +  "\n" + "Disease: " + snap.child("Disease").getValue().toString() + "\n" +
                                     "Dosage:"  + snap.child("Dosage").getValue().toString() + "\n" +
-                                    "Patient Review: " + snap.child("Patient Review").getValue().toString() + "\n" +
-                                    "Prescribed medicine: " + snap.child("Prescribed medicine").getValue().toString() + "\n" +
-                                    "Price(Rs): " + snap.child("Price(Rs)").getValue().toString() + "\n" +
-                                    "Side Effects: " + snap.child("Side Effects").getValue().toString() + "\n";
+                                    "Patient Review: " + snap.child("PatientReview").getValue().toString() + "\n" +
+                                    "Prescribed medicine: " + snap.child("Prescribed_medicine").getValue().toString() + "\n" +
+                                    "Price(Rs): " + snap.child("Price").getValue().toString() + "\n" +
+                                    "Side Effects: " + snap.child("SideEffects").getValue().toString() + "\n";
 
                         }
                         data.setText(s);

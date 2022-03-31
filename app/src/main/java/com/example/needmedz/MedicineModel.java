@@ -8,5 +8,4 @@ public class MedicineModel {
     public float Price ;
     public int ItemId ;
     public String SideEffects ;
-
 }
