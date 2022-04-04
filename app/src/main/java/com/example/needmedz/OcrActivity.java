@@ -2,6 +2,7 @@ package com.example.needmedz;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -30,9 +31,15 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class OcrActivity extends AppCompatActivity {
 
@@ -47,13 +54,14 @@ public class OcrActivity extends AppCompatActivity {
     private Bitmap bitmap;
     String MedData;
     Button skip;
+    private ArrayList<MedicineModel> medlist ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr);
-
+        medlist = new ArrayList<>();
         toolbar = (Toolbar) findViewById(R.id.AppBar);
         Drawer = findViewById(R.id.mainDrawer);
         nav = findViewById(R.id.navigation);
@@ -65,6 +73,8 @@ public class OcrActivity extends AppCompatActivity {
         i.setImageResource(R.drawable.uploadicon);
         setupDrawerLayout();
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
+
+        LoadData();
 
         //         setting  up log out feature in navigation drawer.
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -124,6 +134,36 @@ public class OcrActivity extends AppCompatActivity {
     });
 
     }
+
+    private void LoadData() {
+        FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                medlist.clear();
+
+                for (DataSnapshot snap : snapshot.getChildren()  ) {
+                    medlist.add(snap.getValue(MedicineModel.class));
+
+                }
+                if(medlist.size() > 0)
+                    DataBaseActivity.medL = medlist;
+                else
+                    Toast.makeText(OcrActivity.this, "Details cannot be found", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+//    private void textpasser() {
+//        String Meddata = new Gson().toJson(medlist);
+//        SharedPreferences.Editor edit = getSharedPreferences("Meddata" , MODE_PRIVATE).edit();
+//        edit.putString("list" , Meddata);
+//        edit.apply();
+//    }
 
 
     private void setupDrawerLayout() {

@@ -57,4 +57,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.4.3'
     implementation 'com.google.android.gms:play-services-vision:20.1.0'
     implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.code.gson:gson:2.8.8'
 }
